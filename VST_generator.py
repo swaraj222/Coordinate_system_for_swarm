@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import random
 
 # class VirtualStigmergyTable:
 #     def __init__(self, num_robots):
@@ -21,15 +22,39 @@ import matplotlib.pyplot as plt
 
 # # Example Usage
 # if __name__ == "__main__":
-num_robots = 5
-VST = np.zeros((num_robots - 1, num_robots)) # (Distance from each robot, number of data due to robots)
+num_robots = 10
+VST = np.zeros((num_robots, num_robots)) # (Distance from each robot, number of data due to robots)
 
-X = [1, 2, 3, 4, 5]
-Y = [1, 2, 3, 4, 5]
+# print(VST)
 
-j= 0
+X = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+Y = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+for i in range(len(X)):
+    X[i] = random.uniform(0 , 10)
+for i in range(len(Y)):
+    Y[i] = random.uniform(0 , 10)
+
+X = list(np.around(X,2))
+Y = list(np.around(Y,2))
+# j= 0
 
 for i in range(num_robots):
-    while j != i:
-        VST[i].append(np.sqrt((Y[i]-Y[j])**2 + (X[i]- X[j])**2))
-    j = j+1
+    for j in range(num_robots):
+        if j!=i:
+            VST[i][j] = (np.sqrt((Y[i]-Y[j])**2 + (X[i]- X[j])**2))
+
+VST_i= []                         
+# np.array(VST_i)
+for k in VST:
+    for l in k:
+        if l == 0.0:
+            k = np.delete(k, np.where(k == 0.0))
+            k = k.tolist()
+            VST_i.append(k)
+
+VST = VST_i 
+
+print("X", X)
+print("Y", Y)
+plt.scatter(X,Y)
