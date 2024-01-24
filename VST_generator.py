@@ -30,13 +30,16 @@ VST = np.zeros((num_robots, num_robots)) # (Distance from each robot, number of 
 X = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 Y = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
+# X = [4.5608, 2.5501, 4.0817, 1.3471, 9.7813, 5.5381, 4.5892, 8.5662, 6.0688, 4.5492]
+# Y = [8.0918, 7.4495, 5.2037, 0.8356, 7.521, 0.0171, 2.4966, 4.6773, 4.6039, 0.4696]
+
 for i in range(len(X)):
     X[i] = random.uniform(0 , 10)
 for i in range(len(Y)):
     Y[i] = random.uniform(0 , 10)
 
-X = list(np.around(X,2))
-Y = list(np.around(Y,2))
+X = list(np.around(X,4))
+Y = list(np.around(Y,4))
 # j= 0
 
 for i in range(num_robots):
