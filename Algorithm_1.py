@@ -118,11 +118,33 @@ print(ref_rob_a_id)
 print(ref_rob_b_id)
 print("Leader ID = ", leader_id)
 
+def dist(VST, i, j):
+    if j>i:
+        j -= 1
+    distance = VST[f'{i}_dist'][j]
+    return distance
+
+
+
+
+z_la = dist(VST, leader_id, ref_rob_a_id)
+z_lb = dist(VST, leader_id, ref_rob_b_id)
+z_ab = dist(VST, ref_rob_a_id, ref_rob_b_id)
+
+print("z_la", z_la)
+print("z_lb", z_lb)
+print("z_ab", z_ab)
+x_a = round(1/2*(z_ab + ((z_la**2 - z_lb**2)/z_ab)), 4)
+x_b = round(1/2*(((z_la**2 - z_lb**2)/z_ab) - z_ab), 4)
+y_l = round(np.sqrt(z_la - x_a), 4)
+
+print("The co-ordinates are, for leader",(0, y_l),"\n for reference robtot a is", (x_a, 0),"\n for reference robtot b is",(x_b, 0) )
+
+VST["Leader co-ordinate"] = (0, y_l)
+VST["Reference robot a co-ordinate"] = (x_a, 0)
+VST["Reference robot b co-ordinate"] = (x_b, 0)
 
 print(VST)
-
-
-
 
 plt.figure(2)
 plt.scatter(X,Y)
