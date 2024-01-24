@@ -40,7 +40,7 @@ def n_list_final(VST, num_robots, R):
     while n_unique_count(n_count):
         R = R - 0.01
         print("Reducing R", R)
-        if stop > 100:
+        if stop > 150:
             break
         n_count = neighbour_check(VST, num_robots, R)
         stop = stop + 1
@@ -67,6 +67,45 @@ while l < num_robots:
         leader_id = l
     l += 1
 
+robots_list = sorted(VST[leader_id], reverse=True)
+
+print(robots_list)
+
+
+
+def ref_select(VST, leader_id, robots_list):
+    ref_robot = True
+    while ref_robot == True:
+        ref_rob_a_id = 0
+        ref_rob_b_id = 1
+        a_dist = robots_list[ref_rob_a_id]
+        b_dist = robots_list[ref_rob_b_id]
+        a_indent = np.where(VST[leader_id] == a_dist)
+        b_indent = np.where(VST[leader_id] == b_dist)
+
+        print(a_indent)
+        print(b_indent)
+
+        if a_indent > leader_id:
+            a_indent += 1
+        if b_indent > leader_bid:
+            b_indent += 1
+        ab_dist = VST[a_indent][b_indent]
+        
+        print(ref_rob_a_id)
+        print(ref_rob_b_id)
+
+        if ab_dist ==   a_dist + b_dist:   
+            ref_robot = True
+            ref_rob_b_id += 1
+        else:
+            ref_robot = False
+            # return ref_rob_a_id, ref_rob_b_id
+
+# ref_rob_a_id, ref_rob_b_id = ref_select(VST, leader_id, robots_list)
+ref_select(VST, leader_id, robots_list)
+# print(ref_rob_a_id)
+# print(ref_rob_b_id)
 print(leader_id)
 plt.show()
 
