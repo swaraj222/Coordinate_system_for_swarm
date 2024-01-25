@@ -125,8 +125,6 @@ def dist(VST, i, j):
     return distance
 
 
-
-
 z_la = dist(VST, leader_id, ref_rob_a_id)
 z_lb = dist(VST, leader_id, ref_rob_b_id)
 z_ab = dist(VST, ref_rob_a_id, ref_rob_b_id)
@@ -149,22 +147,22 @@ print(VST)
 plt.figure(2)
 plt.scatter(X,Y)
 plt.scatter(X[ref_rob_a_id],Y[ref_rob_a_id],c='orange')
-plt.annotate("Reference robot a", # this is the text
-                 (X[ref_rob_a_id],Y[ref_rob_a_id]), # these are the coordinates to position the label
-                 textcoords="offset points", # how to position the text
-                 xytext=(0,10), # distance from text to points (x,y)
+plt.annotate("Reference robot a", 
+                 (X[ref_rob_a_id],Y[ref_rob_a_id]), 
+                 textcoords="offset points", 
+                 xytext=(0,10), 
                  ha='center')
 plt.scatter(X[ref_rob_b_id],Y[ref_rob_b_id],c='orange',label="Reference robot b")
-plt.annotate("Reference robot b", # this is the text
-                 (X[ref_rob_b_id],Y[ref_rob_b_id]), # these are the coordinates to position the label
-                 textcoords="offset points", # how to position the text
-                 xytext=(0,10), # distance from text to points (x,y)
+plt.annotate("Reference robot b", 
+                 (X[ref_rob_b_id],Y[ref_rob_b_id]), 
+                 textcoords="offset points", 
+                 xytext=(0,10), 
                  ha='center')
 plt.scatter(X[leader_id],Y[leader_id],c='red',label="Leader robot")
-plt.annotate("Leader robot", # this is the text
-                 (X[leader_id],Y[leader_id]), # these are the coordinates to position the label
-                 textcoords="offset points", # how to position the text
-                 xytext=(0,10), # distance from text to points (x,y)
+plt.annotate("Leader robot", 
+                 (X[leader_id],Y[leader_id]), 
+                 textcoords="offset points", 
+                 xytext=(0,10), 
                  ha='center')
 plt.show()
 
