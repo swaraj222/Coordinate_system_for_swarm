@@ -14,7 +14,6 @@ def neighbour_count(VST, id, R):
             count += 1
     return count
 
-# print("Neighbour count", neighbour_count(VST, 4, R))
 def neighbour_check(VST, num_robots, R):
     n_count = []
     for i in range(num_robots):
@@ -39,7 +38,7 @@ def n_list_final(VST, num_robots, R):
     print(n_count)
     while n_unique_count(n_count):
         R = R - 0.01
-        print("Reducing R", R)
+        # print("Reducing R", R)
         if stop > 150:
             break
         n_count = neighbour_check(VST, num_robots, R)
@@ -81,6 +80,8 @@ def ref_select(VST, leader_id, robots_list):
         ref_rob_b_id = 1
         a_dist = robots_list[ref_rob_a_id]
         b_dist = robots_list[ref_rob_b_id]
+        print(a_dist)
+        print(b_dist)
         if a_dist == b_dist:
             ref_rob_b_id +=1
         a_indent = VST[f'{leader_id}_dist'].index(a_dist)
@@ -114,9 +115,9 @@ ref_rob_a_id, ref_rob_b_id = ref_select(VST, leader_id, robots_list)
 VST['Reference Robot a'] = ref_rob_a_id
 VST['Reference Robot b'] = ref_rob_b_id
 
-print(ref_rob_a_id)
-print(ref_rob_b_id)
 print("Leader ID = ", leader_id)
+print("Reference Robot a ", ref_rob_a_id)
+print("Reference Robot b ", ref_rob_b_id)
 
 def dist(VST, i, j):
     if j>i:
@@ -164,5 +165,5 @@ plt.annotate("Leader robot",
                  textcoords="offset points", 
                  xytext=(0,10), 
                  ha='center')
-plt.show()
+
 
