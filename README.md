@@ -1,5 +1,7 @@
 # Coordinate_system_for_swarm
- 
+
+Run Coordinate_generator.py for the result generation.
+
 The repository contains three files:
 
 VST_generator.py:

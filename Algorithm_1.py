@@ -4,7 +4,7 @@ import time
 import matplotlib.pyplot as plt
 from VST_generator import VST, num_robots, X, Y
 
-R = 2 # Initial radius to check for neighbours
+R = 4.5 # Initial radius to check for neighbours
 
 def neighbour_count(VST, id, R):
     count = 0
@@ -37,14 +37,14 @@ def n_list_final(VST, num_robots, R):
     stop = 0
     while n_unique_count(n_count):
         R = R - 0.01
-        if stop > 150:
+        if stop > 200:
             break
         n_count = neighbour_check(VST, num_robots, R)
         stop = stop + 1
     return n_count
 
 n_count = n_list_final(VST, num_robots, R)
-
+print("Neighbour count of each robot", n_count)
 leader_id = 0
 l = 0
 
@@ -65,32 +65,36 @@ robots_list = sorted(VST[f'{leader_id}_dist'])
 
 def ref_select(VST, leader_id, robots_list):
     ref_robot = True
+    ref_rob_a_id = 0
+    ref_rob_b_id = 1
     while ref_robot:
-        ref_rob_a_id = 0
-        ref_rob_b_id = 1
         a_dist = robots_list[ref_rob_a_id]
         b_dist = robots_list[ref_rob_b_id]
         if a_dist == b_dist:
             ref_rob_b_id +=1
 
-        a_indent = VST[f'{leader_id}_dist'].index(a_dist)
-        b_indent = VST[f'{leader_id}_dist'].index(b_dist)
+        a_index = VST[f'{leader_id}_dist'].index(a_dist)
+        b_index = VST[f'{leader_id}_dist'].index(b_dist)
 
         if a_dist == b_dist:
-            b_indent +=1
-        if a_indent >= leader_id:
-            a_indent += 1
-        if b_indent >= leader_bid:
-            b_indent += 1
-        ab_dist = VST[f'{a_indent}_dist'][b_indent]
-        if ab_dist ==   a_dist + b_dist:   
+            b_index +=1
+        if a_index >= leader_id:
+            a_index += 1
+        if b_index >= leader_id:
+            b_index += 1
+        
+        if b_index > a_index:
+            ab_dist = VST[f'{a_index}_dist'][b_index - 1]
+        else:
+            ab_dist = VST[f'{a_index}_dist'][b_index]
+        
+        if ab_dist - 0.05 <  a_dist + b_dist and a_dist + b_dist < ab_dist + 0.05:   
             ref_robot = True
             ref_rob_b_id += 1
-            robots_list.pop(1)
             print("In a line")
         else:
             ref_robot = False
-            return a_indent, b_indent
+            return a_index, b_index
 
 ref_rob_a_id, ref_rob_b_id = ref_select(VST, leader_id, robots_list)
 
@@ -114,7 +118,7 @@ z_ab = dist(VST, ref_rob_a_id, ref_rob_b_id)
 
 x_a = round(1/2*(z_ab + ((z_la**2 - z_lb**2)/z_ab)), 4)
 x_b = round(1/2*(((z_la**2 - z_lb**2)/z_ab) - z_ab), 4)
-y_l = round(np.sqrt(z_la - x_a), 4)
+y_l = round(np.sqrt(abs(z_la**2 - x_a**2)), 4)
 
 print("The co-ordinates are, for leader",(0, y_l),"\n for reference robtot a is", (x_a, 0),"\n for reference robtot b is",(x_b, 0) )
 
