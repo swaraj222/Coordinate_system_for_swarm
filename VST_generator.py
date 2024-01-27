@@ -7,15 +7,15 @@ num_robots = 10 # Setting the number of robots
 VST_list = np.zeros((num_robots, num_robots)) # (Distance from each robot, number of data due to robots)
 VST = {} 
 
-X = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-Y = [1, 2, 3, 5, 5, 6, 7, 8, 9, 10]
+X = [7.7146, 5.2926, 6.253, 1.6542, 0.4861, 6.5201, 7.7541, 0.8125, 3.6631, 2.9394]
+Y = [5.4007, 3.3698, 4.6256, 8.628, 7.4055, 8.2469, 3.3499, 0.9888, 0.6216, 2.5005]
 
 # Randomising the choice of coordinates of the robots
 
-for i in range(len(X)): 
-    X[i] = random.uniform(0 , 10)
-for i in range(len(Y)):
-    Y[i] = random.uniform(0 , 10)
+# for i in range(len(X)): 
+#     X[i] = random.uniform(0 , 10)
+# for i in range(len(Y)):
+#     Y[i] = random.uniform(0 , 10)
 
 X = list(np.around(X,4))
 Y = list(np.around(Y,4))
