@@ -9,7 +9,7 @@ Leader_id = VST['Leader_id']
 Ref_rob_a_id = VST['Reference Robot a']
 Ref_rob_b_id = VST['Reference Robot b']
 
-def trilaterate_2d(p_l, d_l, p_a, d_a, p_b, d_b):
+def trilaterate_2d(p_l, d_l, p_a, d_a, p_b, d_b): # Function for finding the coordinates of a robot
     (x_l, y_l) = p_l
     (x_a, y_a) = (p_a[0], p_a[1])
     (x_b, y_b) = (p_b[0], p_b[1])
@@ -36,7 +36,7 @@ for id in range(num_robots):
         L_dist = VST[f'{id}_dist'][Rel_Leader_id]
         a_dist = VST[f'{id}_dist'][Rel_Ref_rob_a_id]
         b_dist = VST[f'{id}_dist'][Rel_Ref_rob_b_id]
-        VST[f'{id}_coordinates']  = trilaterate_2d(Leader_coordinate, L_dist, Ref_rob_a, a_dist, Ref_rob_b, b_dist)
+        VST[f'{id}_coordinates']  = trilaterate_2d(Leader_coordinate, L_dist, Ref_rob_a, a_dist, Ref_rob_b, b_dist) # Adding new coordintes to VST
 
 print("VST with new co-ordinates: \n",VST)
 plt.show()

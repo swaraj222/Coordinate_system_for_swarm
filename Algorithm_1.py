@@ -1,12 +1,10 @@
 import numpy as np 
-import math
-import time
 import matplotlib.pyplot as plt
 from VST_generator import VST, num_robots, X, Y
 
 R = 4.5 # Initial radius to check for neighbours
 
-def neighbour_count(VST, id, R):
+def neighbour_count(VST, id, R): # Function for checking the neighbour of the each robot
     count = 0
     j = VST[f'{id}_dist']
     for i in j:
@@ -14,7 +12,7 @@ def neighbour_count(VST, id, R):
             count += 1
     return count
 
-def neighbour_check(VST, num_robots, R):
+def neighbour_check(VST, num_robots, R): # Function for making the list for neighbour count
     n_count = []
     for i in range(num_robots):
         n_count.append(neighbour_count(VST, i, R))
@@ -22,7 +20,7 @@ def neighbour_check(VST, num_robots, R):
 
 n_count = neighbour_check(VST, num_robots , R)
 
-def n_unique_count(n_count):
+def n_unique_count(n_count): # Checking that neighbour counts are not repetitive
     sorted_n_count = sorted(n_count, reverse = True)
 
     if sorted_n_count[0] == sorted_n_count[1]:
@@ -32,7 +30,7 @@ def n_unique_count(n_count):
     else:
         return False
 
-def n_list_final(VST, num_robots, R):
+def n_list_final(VST, num_robots, R): # Finalising the neighbour count list
     n_count = neighbour_check(VST, num_robots, R)
     stop = 0
     while n_unique_count(n_count):
@@ -45,13 +43,14 @@ def n_list_final(VST, num_robots, R):
 
 n_count = n_list_final(VST, num_robots, R)
 print("Neighbour count of each robot", n_count)
-leader_id = 0
+leader_id = 0 # Proposing a leader ID
 l = 0
 
 bid = n_count[0]
 leader_bid = n_count[leader_id]
 
-while l < num_robots:
+# Finding the leader ID
+while l < num_robots: 
     bid = n_count[l]
     if bid <= leader_bid:
         leader_id = leader_id
@@ -60,14 +59,14 @@ while l < num_robots:
         leader_id = l
     l += 1
 
-VST['Leader_id']= leader_id
-robots_list = sorted(VST[f'{leader_id}_dist'])
+VST['Leader_id']= leader_id # Adding the leader ID to VST
+robots_list = sorted(VST[f'{leader_id}_dist']) # Listing the distance of each robots from the leader robot
 
-def ref_select(VST, leader_id, robots_list):
+def ref_select(VST, leader_id, robots_list): # Function for selecting the reference robots
     ref_robot = True
-    ref_rob_a_id = 0
+    ref_rob_a_id = 0 # Prposing reference robots ID
     ref_rob_b_id = 1
-    while ref_robot:
+    while ref_robot: 
         a_dist = robots_list[ref_rob_a_id]
         b_dist = robots_list[ref_rob_b_id]
         if a_dist == b_dist:
@@ -88,7 +87,7 @@ def ref_select(VST, leader_id, robots_list):
         else:
             ab_dist = VST[f'{a_index}_dist'][b_index]
         
-        if ab_dist - 0.05 <  a_dist + b_dist and a_dist + b_dist < ab_dist + 0.05:   
+        if ab_dist - 0.05 <  a_dist + b_dist and a_dist + b_dist < ab_dist + 0.05:   # Checking for colinearity with leader robot
             ref_robot = True
             ref_rob_b_id += 1
             print("In a line")
@@ -98,23 +97,23 @@ def ref_select(VST, leader_id, robots_list):
 
 ref_rob_a_id, ref_rob_b_id = ref_select(VST, leader_id, robots_list)
 
-VST['Reference Robot a'] = ref_rob_a_id
+VST['Reference Robot a'] = ref_rob_a_id # Adding reference robots ID to VST
 VST['Reference Robot b'] = ref_rob_b_id
 
 print("Leader ID = ", leader_id)
 print("Reference Robot a = ", ref_rob_a_id)
 print("Reference Robot b = ", ref_rob_b_id)
 
-def dist(VST, i, j):
+def dist(VST, i, j): # Function for finding distance between robot i and j
     if j>i:
         j -= 1
     distance = VST[f'{i}_dist'][j]
     return distance
 
 
-z_la = dist(VST, leader_id, ref_rob_a_id)
-z_lb = dist(VST, leader_id, ref_rob_b_id)
-z_ab = dist(VST, ref_rob_a_id, ref_rob_b_id)
+z_la = dist(VST, leader_id, ref_rob_a_id) # Distance between leader and reference robot a
+z_lb = dist(VST, leader_id, ref_rob_b_id) # Distance between leader and reference robot b
+z_ab = dist(VST, ref_rob_a_id, ref_rob_b_id) # Distance between reference robot a and reference robot b
 
 x_a = round(1/2*(z_ab + ((z_la**2 - z_lb**2)/z_ab)), 4)
 x_b = round(1/2*(((z_la**2 - z_lb**2)/z_ab) - z_ab), 4)
@@ -157,3 +156,5 @@ for id in range(num_robots):
                     textcoords="offset points", 
                     xytext=(0,10), 
                     ha='center')
+        
+# plt.show()
