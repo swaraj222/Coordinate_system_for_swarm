@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from Algorithm_1 import VST, num_robots
+from VST_generator import X, Y
 
 Leader_coordinate = VST["Leader co-ordinate"] 
 Ref_rob_a = VST["Reference robot a co-ordinate"] 
@@ -37,6 +38,15 @@ for id in range(num_robots):
         a_dist = VST[f'{id}_dist'][Rel_Ref_rob_a_id]
         b_dist = VST[f'{id}_dist'][Rel_Ref_rob_b_id]
         VST[f'{id}_coordinates']  = trilaterate_2d(Leader_coordinate, L_dist, Ref_rob_a, a_dist, Ref_rob_b, b_dist) # Adding new coordintes to VST
-
+        
 print("VST with new co-ordinates: \n",VST)
+
+for id in range(num_robots):
+    if id!= Leader_id and id!= Ref_rob_a_id and id!= Ref_rob_b_id:
+        plt.annotate(f"{id} = {VST[f'{id}_coordinates']}",
+                    (X[id], Y[id]),
+                    textcoords="offset points", 
+                    xytext=(0,10), 
+                    ha='center')
+
 plt.show()
