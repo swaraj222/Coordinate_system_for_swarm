@@ -91,11 +91,5 @@ plt.annotate(f"Reference robot b = {VST['Reference robot b co-ordinate']}",
 
 plt.plot((VST['Leader co-ordinate'][0], VST['Reference robot a co-ordinate'][0]),(VST['Leader co-ordinate'][1], VST['Reference robot a co-ordinate'][1]), linestyle='dashed', c='green' )
 plt.plot((VST['Leader co-ordinate'][0], VST['Reference robot b co-ordinate'][0]),(VST['Leader co-ordinate'][1], VST['Reference robot b co-ordinate'][1]), linestyle='dashed', c='green' )
-# for id in range(num_robots):
-#     if f'{id}_coordinates' in VST:
-#         plt.annotate(f"{id} = {VST[f'{id}_coordinates']}",
-#              (X_new[2], Y_new[2]),
-#              textcoords="offset points", 
-#              xytext=(0,10), 
-#              ha='center')
+
 plt.show()
