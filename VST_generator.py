@@ -52,4 +52,8 @@ print("Y", Y)
 
 # Plotting the original coordintes of the robots
 plt.figure(1)
+plt.title("Position of robots in space")
 plt.scatter(X,Y)
+
+plt.xlabel("X co-ordinate")
+plt.ylabel("Y co-ordinate")

@@ -128,20 +128,23 @@ VST["Reference robot b co-ordinate"] = (x_b, 0)
 print("VST at the end of algorithm 1: \n",VST)
 
 plt.figure(2)
+plt.title("Position of robots in space with Leader and reference robots selected")
 plt.scatter(X,Y)
+plt.xlabel("X co-ordinate")
+plt.ylabel("Y co-ordinate")
 plt.scatter(X[ref_rob_a_id],Y[ref_rob_a_id],c='orange')
 plt.annotate(f"Reference robot a = ({x_a}, 0)", 
                  (X[ref_rob_a_id],Y[ref_rob_a_id]), 
                  textcoords="offset points", 
                  xytext=(0,10), 
                  ha='center')
-plt.scatter(X[ref_rob_b_id],Y[ref_rob_b_id],c='orange',label="Reference robot b")
+plt.scatter(X[ref_rob_b_id],Y[ref_rob_b_id],c='orange')
 plt.annotate(f"Reference robot b = ({x_b}, 0)", 
                  (X[ref_rob_b_id],Y[ref_rob_b_id]), 
                  textcoords="offset points", 
                  xytext=(0,10), 
                  ha='center')
-plt.scatter(X[leader_id],Y[leader_id],c='red',label="Leader robot")
+plt.scatter(X[leader_id],Y[leader_id],c='red')
 plt.annotate(f"Leader robot = (0, {y_l})", 
                  (X[leader_id],Y[leader_id]), 
                  textcoords="offset points", 

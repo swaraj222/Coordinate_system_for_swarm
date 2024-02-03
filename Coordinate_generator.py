@@ -49,4 +49,53 @@ for id in range(num_robots):
                     xytext=(0,10), 
                     ha='center')
 
+plt.figure(3)
+plt.title("Position of robots as per new co-ordinate system")
+plt.axhline(0) #x-axis line
+plt.axvline(0) #y-axis line
+plt.xlabel("X co-ordinate")
+plt.ylabel("Y co-ordinate")
+X_new = [VST['Leader co-ordinate'][0], VST['Reference robot a co-ordinate'][0], VST['Reference robot b co-ordinate'][0]]
+Y_new = [VST['Leader co-ordinate'][1], VST['Reference robot a co-ordinate'][1], VST['Reference robot b co-ordinate'][1]]
+for id in range(num_robots):
+    if f'{id}_coordinates' in VST:
+        X_new.append(VST[f'{id}_coordinates'][0])
+        Y_new.append(VST[f'{id}_coordinates'][1])
+        plt.annotate(f"{id} = {VST[f'{id}_coordinates']}",
+             (X_new[-1], Y_new[-1]),
+             textcoords="offset points", 
+             xytext=(0,10), 
+             ha='center')
+
+plt.scatter(X_new, Y_new)
+plt.scatter(X_new[0],Y_new[0],c='red')
+plt.scatter(X_new[1],Y_new[1],c='orange')
+plt.scatter(X_new[2],Y_new[2],c='orange')
+plt.annotate(f"Leader = {VST['Leader co-ordinate']}",
+             (X_new[0], Y_new[0]),
+             textcoords="offset points", 
+             xytext=(0,10), 
+             ha='center')
+
+plt.annotate(f"Reference robot a = {VST['Reference robot a co-ordinate']}",
+             (X_new[1], Y_new[1]),
+             textcoords="offset points", 
+             xytext=(0,10), 
+             ha='center')
+
+plt.annotate(f"Reference robot b = {VST['Reference robot b co-ordinate']}",
+             (X_new[2], Y_new[2]),
+             textcoords="offset points", 
+             xytext=(0,10), 
+             ha='center')
+
+plt.plot((VST['Leader co-ordinate'][0], VST['Reference robot a co-ordinate'][0]),(VST['Leader co-ordinate'][1], VST['Reference robot a co-ordinate'][1]), linestyle='dashed', c='green' )
+plt.plot((VST['Leader co-ordinate'][0], VST['Reference robot b co-ordinate'][0]),(VST['Leader co-ordinate'][1], VST['Reference robot b co-ordinate'][1]), linestyle='dashed', c='green' )
+# for id in range(num_robots):
+#     if f'{id}_coordinates' in VST:
+#         plt.annotate(f"{id} = {VST[f'{id}_coordinates']}",
+#              (X_new[2], Y_new[2]),
+#              textcoords="offset points", 
+#              xytext=(0,10), 
+#              ha='center')
 plt.show()
